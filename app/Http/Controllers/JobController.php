@@ -114,4 +114,18 @@ class JobController extends Controller
         }
         else { return response()->json(['message', 'Job Not Found!'], 400);}
     }
+
+    public function addNewJob(Job $job) {
+        request()->validate([
+            'title' => ['required', 'min:3'],
+            'salary' => ['required']
+        ]);
+
+        Job::create([
+            'title' => request('title'),
+            'salary' => request('salary'),
+            'employer_id' => 1    //hardcoded employer ID
+        ]);
+        return response()->json(['message', 'Job Created'], 200);
+    }
 }

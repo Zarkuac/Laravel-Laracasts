@@ -14,3 +14,4 @@ Route::get('/api-jobs', [JobController::class, 'getJobs']);
 Route::get('/api-jobs/{id}', [JobController::class, 'getJobById']);
 Route::delete('/api-jobs/{id}', [JobController::class, 'deleteJobById']);
 Route::patch('/api-jobs/{id}', [JobController::class, 'updateJobById']);
+Route::put('/api-jobs', [JobController::class, 'addNewJob']);
