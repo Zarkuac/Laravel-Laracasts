@@ -71,4 +71,47 @@ class JobController extends Controller
         return redirect('/jobs');
 
     }
+
+
+    //apiController
+    public function getJobs() {
+        $jobs = Job::all();
+
+        return response()->json($jobs);
+    }
+
+    public function getJobById($id) {
+        $job = Job::find($id);
+
+        if($job) {
+            return response()->json($job, 200);
+        } else {
+            return response()->json(['message' => 'Job Not Found!'], 404);
+        }
+    }
+
+    public function deleteJobById($id) {
+        $job = Job::find($id);
+
+        if($job) {
+            $job->destroy($id);
+            return response()->json(['message' => 'Job Deleted']);
+        }
+        else {
+            return response()->json(['message'=> 'Job not found'], 404);
+        }
+    }
+
+    public function updateJobById($id) {
+        $job = Job::find($id);
+        if($job) {
+            $job->update([
+                'title' => request('title'),
+                'salary' => request('salary')
+            ]);
+
+            return response()->json($job, 200);
+        }
+        else { return response()->json(['message', 'Job Not Found!'], 400);}
+    }
 }
